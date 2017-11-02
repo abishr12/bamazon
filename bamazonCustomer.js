@@ -33,7 +33,7 @@ function bezos() {
       }
     ])
     .then(function(response) {
-      purchaseItem(response.itemPicked, response.amount);
+      purchaseItem(response.itemPicked, response.amount, setProfit);
       setTimeout(displayTable, 2000);
     });
 }
@@ -61,7 +61,7 @@ function displayTable() {
   //connection.end();
 }
 
-function purchaseItem(itemNum, numPurchased) {
+function purchaseItem(itemNum, numPurchased, callback) {
   connection.query(
     "SELECT * FROM products WHERE ?",
     [{ item_id: itemNum }],
@@ -75,7 +75,7 @@ function purchaseItem(itemNum, numPurchased) {
       } else {
         newStockAmt = res[0].stock_quantity - numPurchased;
         updateInventory(itemNum, newStockAmt);
-        setProfit(itemNum, numPurchased);
+        callback(itemNum, numPurchased);
       }
     }
   );
