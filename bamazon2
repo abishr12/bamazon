@@ -58,4 +58,22 @@ CREATE TABLE departments(
 	PRIMARY KEY(dept_id)
 );
 
+INSERT INTO
+departments (dept_name, over_head_costs)
+VALUES ('Electronics',2000);
+
+INSERT INTO
+departments (dept_name, over_head_costs)
+VALUES ('Food',200);
+
+INSERT INTO
+departments (dept_name, over_head_costs)
+VALUES ('Books',200);
+
+ALTER TABLE products
+ADD COLUMN product_sales DECIMAL(12,2) DEFAULT 0
+AFTER stock_quantity;
+
+SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));
+
 SELECT * FROM products;
